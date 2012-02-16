@@ -14,14 +14,7 @@ namespace RXDemoApp
 	{
 		private static void Main(string[] args)
 		{
-			//try
-			{
-				UIApplication.Main(args, "", "AppDelegate"); // must pass your application delegate's class name here
-			}
-			//catch(Exception ex)
-			{
-			//	var ex1 = ex;
-			}
+			UIApplication.Main(args, "", "AppDelegate"); // must pass your application delegate's registered class name here
 		}
 	}
 
@@ -45,18 +38,12 @@ namespace RXDemoApp
 
 		private UIWindow CreateMainWindow()
 		{
-			// Create the main window and add a big purple label
 			var window = new UIWindow(UIScreen.MainScreen.Bounds);
 
 			_tabController = new TabControllerContainer();
 			window.AddSubview(_tabController.View);
 
 			return window;
-		}
-
-		// This method is allegedly required in iPhoneOS 3.0
-		public override void OnActivated(UIApplication application)
-		{
 		}
 	}
 }

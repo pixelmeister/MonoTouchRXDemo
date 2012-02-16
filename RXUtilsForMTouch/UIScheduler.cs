@@ -9,24 +9,14 @@ using System.Globalization;
 
 namespace RxUtilitiesForMTouch
 {
-	public class NSRunloopScheduler : IScheduler
+	public class UIScheduler : IScheduler
 	{
 		readonly NSObject _theApp;
 		
-		static int _schedCount = 0;
-
-#if MACOS
-		public NSRunloopScheduler (NSApplication app)
+		public UIScheduler ()
 		{
-			theApp = app;
+			_theApp = UIApplication.SharedApplication;
 		}
-#else
-		public NSRunloopScheduler (UIApplication app)
-		{
-			if (app == null) throw new ArgumentNullException("app");
-			_theApp = app;
-		}
-#endif
 
 		public IDisposable Schedule<TState>(TState state, Func<IScheduler, TState, IDisposable> action)
 		{
@@ -35,25 +25,10 @@ namespace RxUtilitiesForMTouch
 				throw new ArgumentNullException("action");
 			}
 
-			//this.Log().Debug("Scheduling on Runloop");
 			Action scheduledItem = () => action(this, state);
 			_theApp.BeginInvokeOnMainThread(new NSAction(scheduledItem));
 			return Disposable.Empty;
 		}
-		
-		// returns abs val non-negative TimeSpan.
-		public static TimeSpan AbsValDiff (DateTimeOffset due, DateTimeOffset now)
-		{
-			if ((due - now) > TimeSpan.Zero)
-			{
-				return due - now;
-			}
-			else
-			{
-				return now - due;
-			}
-		}
-		
 
 		public IDisposable Schedule<TState>(TState state, DateTimeOffset dueTime, Func<IScheduler, TState, IDisposable> action)
 		{
@@ -63,20 +38,13 @@ namespace RxUtilitiesForMTouch
 			}
 			
 			var now = Now;
-//			var diff = Scheduler.Normalize(dueTime - Now);
-			var diff = AbsValDiff(dueTime, now);
-			CultureInfo ci = CultureInfo.InvariantCulture;
-
-			
-			//Debug.WriteLine ("Due time: " + dueTime.ToString("hh:mm:ss.fffffff", ci) + ", now: " + now.ToString("hh:mm:ss.fffffff", ci));
+			var diff = Scheduler.Normalize(dueTime - Now);
 
 			if (diff == TimeSpan.Zero)
 			{
-				//Debug.WriteLine("Sched now!");
 				return Schedule(state, action);			
 			}
 			
-			//Debug.WriteLine("Sched Later!");
 			return Schedule(state, dueTime - now, action);			
 		}
 
@@ -87,15 +55,11 @@ namespace RxUtilitiesForMTouch
 				throw new ArgumentNullException("action");
 			}
 
-			//this.Log().Debug("Scheduling on Runloop");
-			Action scheduledItem = () => action(this, state);
-			
+			Action scheduledItem = () => action(this, state);			
 			Debug.Assert (dueTime > TimeSpan.Zero);
 			var timer = NSTimer.CreateScheduledTimer(dueTime, new NSAction(scheduledItem));
-			//Debug.WriteLine ("Due time: " + dueTime);
 			return Disposable.Create(timer.Invalidate);
 		}
-
 
 		public DateTimeOffset Now 
 		{
