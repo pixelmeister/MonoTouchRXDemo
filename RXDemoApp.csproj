@@ -84,10 +84,4 @@
   <ItemGroup>
     <Folder Include="Assets\" />
   </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="System.Reactive\System.Reactive.MonoTouch.csproj">
-      <Project>{05ebe2d2-610a-472b-a5c3-602546b7a3d6}</Project>
-      <Name>System.Reactive.MonoTouch</Name>
-    </ProjectReference>
-  </ItemGroup>
 </Project>
