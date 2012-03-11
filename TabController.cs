@@ -39,7 +39,7 @@ namespace RXDemoApp
 		public override void ViewDidLoad()
 		{
 			var label = new UILabel();
-			label.Text = "RX Demo - none yet";
+			label.Text = "RX Demo - no second demo yet";
 			label.Frame = new RectangleF(100, 100, 100, 100);
 			View.AddSubview(label);
 

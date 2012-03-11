@@ -7,6 +7,8 @@ using System.Reactive.Disposables;
 using System.Diagnostics;
 using System.Globalization;
 
+// NOTE: thanks to Paul Betts for the original version of this
+
 namespace RxUtilitiesForMTouch
 {
 	public class UIScheduler : IScheduler

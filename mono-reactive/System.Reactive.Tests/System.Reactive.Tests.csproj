@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>10.0.0</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{4EF2BF6E-CF73-403B-8C08-753783CA7CCC}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <RootNamespace>System.Reactive.Tests</RootNamespace>
+    <AssemblyName>System.Reactive.Tests</AssemblyName>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug</OutputPath>
+    <DefineConstants>DEBUG;</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <ConsolePause>false</ConsolePause>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>none</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Release</OutputPath>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <ConsolePause>false</ConsolePause>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Android|AnyCPU' ">
+    <DebugType>none</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Android</OutputPath>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="nunit.framework">
+      <HintPath>..\external\nunit26\nunit.framework.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Core" />
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <ItemGroup>
+    <Folder Include="System\" />
+    <Folder Include="System.Reactive\" />
+    <Folder Include="System.Reactive.Concurrency\" />
+    <Folder Include="System.Reactive.Disposables\" />
+    <Folder Include="System.Reactive.Linq\" />
+    <Folder Include="System.Reactive.Subjects\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Mono.Reactive.Testing\TestSchedulerTest.cs" />
+    <Compile Include="System\MyException.cs" />
+    <Compile Include="System\ErrorScheduler.cs" />
+    <Compile Include="System\ObservableExtensionTest.cs" />
+    <Compile Include="System.Reactive\NotificationTest.cs" />
+    <Compile Include="System.Reactive.Concurrency\CurrentThreadSchedulerTest.cs" />
+    <Compile Include="System.Reactive.Concurrency\EventLoopSchedulerTest.cs" />
+    <Compile Include="System.Reactive.Concurrency\HistoricalSchedulerTest.cs" />
+    <Compile Include="System.Reactive.Concurrency\NewThreadSchedulerTest.cs" />
+    <Compile Include="System.Reactive.Concurrency\SchedulerTest.cs" />
+    <Compile Include="System.Reactive.Concurrency\TaskPoolSchedulerTest.cs" />
+    <Compile Include="System.Reactive.Concurrency\ThreadPoolSchedulerTest.cs" />
+    <Compile Include="System.Reactive.Disposables\BooleanDisposableTest.cs" />
+    <Compile Include="System.Reactive.Disposables\CompositeDisposableTest.cs" />
+    <Compile Include="System.Reactive.Disposables\ContextDisposableTest.cs" />
+    <Compile Include="System.Reactive.Disposables\DisposableTest.cs" />
+    <Compile Include="System.Reactive.Disposables\MultipleAssignmentDisposableTest.cs" />
+    <Compile Include="System.Reactive.Disposables\RefCountDisposableTest.cs" />
+    <Compile Include="System.Reactive.Disposables\ScheduledDisposableTest.cs" />
+    <Compile Include="System.Reactive.Disposables\SerialDisposableTest.cs" />
+    <Compile Include="System.Reactive.Disposables\SingleAssignmentDisposableTest.cs" />
+    <Compile Include="System.Reactive.Linq\ExceptionalObservable.cs" />
+    <Compile Include="System.Reactive.Linq\ObservableInvalidSubscriptionTest.cs" />
+    <Compile Include="System.Reactive.Linq\ObservableConnectableTest.cs" />
+    <Compile Include="System.Reactive.Linq\ObservableEventsTest.cs" />
+    <Compile Include="System.Reactive.Linq\ObservableSchedulerArgumentTest.cs" />
+    <Compile Include="System.Reactive.Linq\ObservableTest.cs" />
+    <Compile Include="System.Reactive.Subjects\SubjectSequenceTest.cs" />
+    <Compile Include="System.Reactive.Subjects\ReplaySubjectTest.cs" />
+    <Compile Include="System.Reactive.Threading.Tasks\TaskObservableExtensionsTest.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\System.Reactive\System.Reactive.csproj">
+      <Project>{0D7D238E-9FB4-4923-99EA-53CC34640235}</Project>
+      <Name>System.Reactive</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Mono.Reactive.Testing\Mono.Reactive.Testing.csproj">
+      <Project>{9FE08AE0-EF24-4498-A50F-6D314F51F18C}</Project>
+      <Name>Mono.Reactive.Testing</Name>
+    </ProjectReference>
+  </ItemGroup>
+</Project>

@@ -22,7 +22,7 @@
     <MtouchDebug>true</MtouchDebug>
     <ConsolePause>false</ConsolePause>
     <MtouchI18n />
-    <MtouchLink>None</MtouchLink>
+    <MtouchArch>ARMv7</MtouchArch>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|iPhoneSimulator' ">
     <DebugType>none</DebugType>
@@ -46,7 +46,7 @@
     <ConsolePause>false</ConsolePause>
     <IpaPackageName />
     <MtouchI18n />
-    <CodesignProvision>3789E6DA-D83C-48A6-B21F-A724F361BBA7</CodesignProvision>
+    <MtouchArch>ARMv7</MtouchArch>
     <MtouchLink>None</MtouchLink>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|iPhone' ">

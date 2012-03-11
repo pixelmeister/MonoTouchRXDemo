@@ -16,38 +16,6 @@ using System.Diagnostics;
 
 namespace RXDemoApp
 {
-//	public class PointFObservable : IObservable<PointF>
-//	{
-//	    private readonly IScheduler _scheduler;
-//	    private PointF Value { get; set; }
-//	
-//	    public PointFObservable(IScheduler scheduler)
-//	    {
-//	        _scheduler = scheduler;
-//	    }
-//
-//	    public IDisposable Subscribe(IObserver<PointF> observer)
-//	    {
-//	        return _scheduler.Schedule(() =>
-//	        {
-//	            var point = default(PointF);
-//	
-//	            try
-//	            {
-//	                point = Value;
-//	            }
-//				catch (Exception ex)
-//	            {
-//	                observer.OnError(ex);
-//	                return;
-//	            }
-//	
-//	            observer.OnNext(point);
-//	            observer.OnCompleted();
-//	        });
-//	    }
-//	}
-
 	public class TimeFliesView : UIView
 	{
 		private readonly IObservable<PointF> _currentTouchPointObserver;
@@ -144,7 +112,17 @@ namespace RXDemoApp
 				            	};
 
 				var closure = i;
-
+				
+				// NOTE: to make this work well on device (it works great in the sim as is), we need to get rid of duplicate calls and to throttle how often we change
+				// we woudl normally do this with this line:
+				//			CurrentTouchObservable.DistinctUntilChanged().Throttle(TimeSpan.FromMilliseconds(100))
+				// but DistinctUntilChnaged crashe son device and throttle seems to be not working. I need to submit bugs on this.
+				//
+				// Instead, we'll do the below. Alas, the touch frequency update starts to overwhlem the UI thread without throttling.
+				// Would probably work better as an OpenGL demo when the update rates are high.
+				//
+				// I think the best thing to do right now is wait for the portable libs verison of RX 2 and support from Mono, which I hope will be soon.
+				//
 				CurrentTouchObservable
 					.Delay(TimeSpan.FromSeconds(0.07*i), uiDispatcher)
 					.Subscribe(e => UpdateLabelPosition(label, e, closure));
